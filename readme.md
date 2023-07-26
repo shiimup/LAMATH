@@ -1,5 +1,8 @@
- ## Ozgun's BLAS implementation
+## Ozgun's BLAS implementation
 
- ### TODO:
- - Implement matmul
- - Implement LU decompose
+---
+
+### TODO:
+
+- Implement matmul
+- Implement LU decompose
