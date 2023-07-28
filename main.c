@@ -4,6 +4,34 @@
 #define N 4
 
 
+void qsort1(float* arr,int size){
+        if(size<2){return;}
+        int piv = arr[size>>1];
+        int i;
+        int j;
+        for(i=0,j=size-1; ; i++,j-- ){
+                for(;arr[i]<piv;i++){}
+                for(;arr[j]>piv;j--){}
+                if(i>=j){break;}
+                float temp=arr[i];
+                arr[i]=arr[j];
+                arr[j]=temp;
+        }
+
+
+        qsort1(arr,i);
+        qsort1(arr+i,size-i);
+        /*
+        float* p=arr+((size-1)*sizeof(float));
+        float* q=p--;
+        for( ; q!=NULL ; q--){
+                if(*p>*q){
+
+                }
+        } */
+
+}
+
 
 void matmul(float m1[N][N], float m2[N][N],float res[N][N]){
         for(int i=0 ; i<N ; i++){
@@ -13,7 +41,6 @@ void matmul(float m1[N][N], float m2[N][N],float res[N][N]){
                         }
                 }
         }
-
 }
 
 void _fill_matrix(float m[N][N]){
