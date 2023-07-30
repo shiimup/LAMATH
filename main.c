@@ -3,6 +3,122 @@
 #include <time.h>
 #define N 4
 
+void print_matrix(float m[N][N]){
+        for(int i=0 ; i<N ; i++){
+        printf("\n");
+                for(int j=0 ; j<N ; j++){
+                        printf("%.2f ", m[i][j]);
+                }
+        }
+printf("\n\n");
+}
+
+
+
+void matmul(float m1[N][N], float m2[N][N],float res[N][N]){
+        for(int i=0 ; i<N ; i++){
+                for(int j=0 ; j<N ; j++){
+                        for(int k=0; k<N; k++){
+                                res[i][j] += m1[i][k] * m2[k][j];
+                        }
+                }
+        }
+}
+
+void init_matrix(float m[N][N]){
+        for(int i=0 ; i<N ; i++){
+                for(int j=0;j<N;j++){
+                        m[i][j] = 0;
+                }
+        }
+}
+
+void cl_matmul(float m1[N][N], float m2[N][N],float res[N][N]){
+        init_matrix(res);
+        for(int i=0 ; i<N ; i++){
+                for(int j=0 ; j<N ; j++){
+                        for(int k=0; k<N; k++){
+                                res[i][j] += m1[i][k] * m2[k][j];
+                        }
+                }
+        }
+}
+
+
+
+/*
+void LUdecompose(float L[N][N],float U[N][N],float A[N][N]) {
+
+       //  Initialize L as an identity matrix
+        for(int i=0 ; i<N ; i++){
+                L[i][i]=1;
+        }
+
+
+
+        for(int j=0 ; j<N ; j++){
+                cl_matmul(L,U,A);
+
+
+                print_matrix(L);
+                // you need to somehow start over with new L's everytime you do matmul and then store all that stuff in L
+                for(int i=j+1 ; i<N ; i++){
+                        L[i][j] = - ( U[i][j] / U[j][j] );
+                }
+        }
+
+}
+*/
+
+void mat_copy(float m1[N][N],float m2[N][N]){
+        /* Copy m2 into m1 */
+        for(int i=0; i<N ; i++){
+                for(int j=0; j<N; j++){
+                        m1[i][j]=m2[i][j];
+                }
+        }
+}
+
+void LUdecompose(float L[N][N],float U[N][N],float A[N][N]) {
+        // Kinda works but very ugly add some numerical stability and pivoting
+
+
+        float L_not[N][N];
+        init_matrix(L_not);
+       //  Initialize L as an identity matrix
+        for(int i=0 ; i<N ; i++){
+                L[i][i]=1;
+                L_not[i][i]=1;
+        }
+
+
+
+        for(int j=0 ; j<N ; j++){
+
+ //               printf("L_not\n");
+  //              print_matrix(L_not);
+
+                cl_matmul(L_not,U,A);
+                mat_copy(U,A);
+
+                init_matrix(L_not);
+
+                for(int i=0 ; i<N ; i++){
+                        L_not[i][i]=1;
+                }
+
+                print_matrix(L);
+                // you need to somehow start over with new L's everytime you do matmul and then store all that stuff in L
+                for(int i=j+1 ; i<N ; i++){
+                        L[i][j] =  ( U[i][j] / U[j][j] );
+                        L_not[i][j] = - ( U[i][j] / U[j][j] );
+                }
+        }
+
+}
+
+
+
 
 void qsort1(float* arr,int size){
         if(size<2){return;}
@@ -32,17 +148,6 @@ void qsort1(float* arr,int size){
 
 }
 
-
-void matmul(float m1[N][N], float m2[N][N],float res[N][N]){
-        for(int i=0 ; i<N ; i++){
-                for(int j=0 ; j<N ; j++){
-                        for(int k=0; k<N; k++){
-                                res[i][j] += m1[i][k] * m2[k][j];
-                        }
-                }
-        }
-}
-
 void _fill_matrix(float m[N][N]){
         for(int i=0 ; i<N ; i++){
                 for(int j=0;j<N;j++){
@@ -50,28 +155,6 @@ void _fill_matrix(float m[N][N]){
                 }
         }
 }
-
-void init_matrix(float m[N][N]){
-        for(int i=0 ; i<N ; i++){
-                for(int j=0;j<N;j++){
-                        m[i][j] = 0;
-                }
-        }
-}
-
-
-
-void print_matrix(float m[N][N]){
-        for(int i=0 ; i<N ; i++){
-        printf("\n");
-                for(int j=0 ; j<N ; j++){
-                        printf("%.2f ", m[i][j]);
-                }
-        }
-printf("\n\n");
-}
-
-
 
 
 int main(int argc,char **argv){
@@ -85,17 +168,31 @@ int main(int argc,char **argv){
         printf("Hello World!\n");
         float m1[N][N];
         float m2[N][N];
+        float l[N][N];
         float res[N][N];
+        float res2[N][N];
+        init_matrix(res2);
         _fill_matrix(m1);
         _fill_matrix(m2);
-        print_matrix(m1);
-        print_matrix(m2);
+
+//       print_matrix(m1);
+ //       print_matrix(m2);
+/*
         init_matrix(res);
         print_matrix(res);
         matmul(m1,m2,res);
 
         print_matrix(res);
+*/
 
-
+        init_matrix(l);
+        init_matrix(res);
+ //       print_matrix(l);
+        print_matrix(m1);
+        LUdecompose(l,m1,res);
+        print_matrix(l);
+        print_matrix(m1);
+        matmul(l,m1,res2);
+        print_matrix(res2);
         return 0;
 }
