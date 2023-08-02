@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 #include "matrix.h"
+#include "integral.h"
 
+#define PI 3.14159
 
 int main(int argc,char **argv){
 
@@ -41,5 +44,9 @@ int main(int argc,char **argv){
         print_matrix(m1);
         matmul(l,m1,res2);
         print_matrix(res2);
+
+
+        printf("%.4f",(smp38(&(sinf),0,11.5*PI,16)));
+
         return 0;
 }
