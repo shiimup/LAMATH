@@ -12,8 +12,6 @@ void print_matrix(float m[N][N]){
 printf("\n\n");
 }
 
-
-
 void matmul(float m1[N][N], float m2[N][N],float res[N][N]){
         for(int i=0 ; i<N ; i++){
                 for(int j=0 ; j<N ; j++){
@@ -42,32 +40,6 @@ void cl_matmul(float m1[N][N], float m2[N][N],float res[N][N]){
                 }
         }
 }
-
-
-
-/*
-void LUdecompose(float L[N][N],float U[N][N],float A[N][N]) {
-
-       //  Initialize L as an identity matrix
-        for(int i=0 ; i<N ; i++){
-                L[i][i]=1;
-        }
-
-
-
-        for(int j=0 ; j<N ; j++){
-                cl_matmul(L,U,A);
-
-
-                print_matrix(L);
-                // you need to somehow start over with new L's everytime you do matmul and then store all that stuff in L
-                for(int i=j+1 ; i<N ; i++){
-                        L[i][j] = - ( U[i][j] / U[j][j] );
-                }
-        }
-
-}
-*/
 
 void mat_copy(float m1[N][N],float m2[N][N]){
         /* Copy m2 into m1 */
@@ -115,9 +87,6 @@ void LUdecompose(float L[N][N],float U[N][N],float A[N][N]) {
         }
 
 }
-
-
-
 
 void qsort1(float* arr,int size){
         if(size<2){return;}
