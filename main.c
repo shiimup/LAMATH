@@ -46,7 +46,7 @@ int main(int argc,char **argv){
         print_matrix(res2);
 
 
-        printf("%.4f",(smp38(&(sinf),0,11.5*PI,16)));
+        printf("%.4f\n",(smp38(&(sinf),4,23,27)));
 
         return 0;
 }

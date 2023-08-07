@@ -2,7 +2,9 @@
 
 ---
 
+ All 2D Arrays use row major order.
+
 ### TODO:
 
-- Implement matmul
-- Implement LU decompose
+- Improve matmul
+- Add L D U decomposition and linear system solver.

@@ -1,3 +1,5 @@
+SHELL = /bin/sh
+
 main: main.o matrix.o integral.o
 	gcc -lm build/main.o build/matrix.o build/integral.o -o build/main
 
