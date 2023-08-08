@@ -1,28 +1,28 @@
 SHELL = /bin/sh
 
-main: main.o matrix.o integral.o
-	gcc -lm build/main.o build/matrix.o build/integral.o -o build/main
+CC = gcc
+CFLAGS = -lm
 
-main.o: main.c
-	gcc -static -lm -c main.c -o build/main.o
+SRC = main.c matrix.c integral.c
+OBJ = $(SRC:.c=.o)
+P_OBJ=$(addprefix build/,$(SRC:.c=.o))
+DEBUG_OBJ = $(SRC:.c=_debug.o)
+P_DEBUG_OBJ=$(addprefix build/,$(SRC:.c=_debug.o))
 
-matrix.o: matrix.c
-	gcc -static -lm -c matrix.c -o build/matrix.o
 
-integral.o: integral.c
-	gcc -static -lm -c integral.c -o build/integral.o
+main: $(OBJ)
+	$(CC) -O2 -Wall $(P_OBJ) -o build/$@ $(CFLAGS)
 
-debug: debug_main.o debug_matrix.o debug_integral.o
-	gcc -lm build/debug_main.o build/debug_matrix.o build/debug_integral.o -o build/debug
+%.o: %.c
+	$(CC) $(CFLAGS) -c $^ -o build/$@
 
-debug_main.o: main.c
-	gcc -lm -c -g main.c -o build/debug_main.o
+debug: $(DEBUG_OBJ)
+	$(CC) -Wall $(P_DEBUG_OBJ) -o build/$@ $(CFLAGS)
 
-debug_matrix.o: matrix.c
-	gcc -lm -c -g matrix.c -o build/debug_matrix.o
-
-debug_integral.o: integral.c
-	gcc -lm -c -g integral.c -o build/debug_integral.o
+%_debug.o: %.c
+	gcc -Wall $(CFLAGS) -c -g $^ -o build/$@
 
 clean:
 	rm -f build/*
+
+.PHONY: clean
