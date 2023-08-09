@@ -1,2 +1,4 @@
 *.[oa]
+git_rsa
+*.pub
 build/
