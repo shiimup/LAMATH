@@ -3,12 +3,13 @@ SHELL = /bin/sh
 CC = gcc
 CFLAGS = -lm
 
-SRC = main.c matrix.c integral.c
+SRC = main.c matrix.c integral.c numerical_diff.c
 OBJ = $(SRC:.c=.o)
 P_OBJ=$(addprefix build/,$(SRC:.c=.o))
 DEBUG_OBJ = $(SRC:.c=_debug.o)
 P_DEBUG_OBJ=$(addprefix build/,$(SRC:.c=_debug.o))
 
+all: main debug
 
 main: $(OBJ)
 	$(CC) -O2 -Wall $(P_OBJ) -o build/$@ $(CFLAGS)
@@ -25,4 +26,4 @@ debug: $(DEBUG_OBJ)
 clean:
 	rm -f build/*
 
-.PHONY: clean
+.PHONY: clean all

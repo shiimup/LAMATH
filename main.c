@@ -4,6 +4,7 @@
 #include <math.h>
 #include "matrix.h"
 #include "integral.h"
+#include "numerical_diff.h"
 
 #define PI 3.14159
 
@@ -47,6 +48,6 @@ int main(int argc,char **argv){
 
 
         printf("%.4f\n",(smp38(&(sinf),4,23,27)));
-
+        printf("%.4f\n",diff_cen(sinf,10));
         return 0;
 }
