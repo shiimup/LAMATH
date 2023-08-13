@@ -14,9 +14,6 @@ int main(int argc,char **argv){
 
         // rand() % range + min;
 
-
-
-        printf("Hello World!\n");
         float m1[N][N];
         float m2[N][N];
         float l[N][N];
@@ -25,27 +22,15 @@ int main(int argc,char **argv){
         init_matrix(res2);
         _fill_matrix(m1);
         _fill_matrix(m2);
-
-//       print_matrix(m1);
- //       print_matrix(m2);
-/*
-        init_matrix(res);
         print_matrix(res);
-        matmul(m1,m2,res);
-
-        print_matrix(res);
-*/
-
         init_matrix(l);
         init_matrix(res);
- //       print_matrix(l);
         print_matrix(m1);
         LUdecompose(l,m1,res);
         print_matrix(l);
         print_matrix(m1);
         matmul(l,m1,res2);
         print_matrix(res2);
-
 
         printf("%.4f\n",(smp38(&(sinf),4,23,27)));
         printf("%.4f\n",diff_cen(sinf,10));

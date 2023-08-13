@@ -3,7 +3,7 @@ SHELL = /bin/sh
 CC = gcc
 CFLAGS = -lm
 
-SRC = main.c matrix.c integral.c numerical_diff.c
+SRC = main.c matrix.c integral.c numerical_diff.c ode.c
 OBJ = $(SRC:.c=.o)
 P_OBJ=$(addprefix build/,$(SRC:.c=.o))
 DEBUG_OBJ = $(SRC:.c=_debug.o)

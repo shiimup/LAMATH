@@ -10,7 +10,7 @@
 - Add L D U decomposition and linear system solver.
 - Add numerical DE
 - Add numerical diff
-- Add lagrange interpolater
+- Add lagrange interpolator
 - Add matrix inversion
 - Add LUPsolve
 - Build a graphing interface
